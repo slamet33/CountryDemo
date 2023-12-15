@@ -24,16 +24,15 @@ struct Country: Identifiable, Decodable {
     }
 }
 
-
 // MARK: Main of View
-struct ContentView: View {
+struct CountryView: View {
     
     @State private var countryList: [Country] = []
     
     var body: some View {
         List {
             ForEach(countryList) { country in
-                CountryView(country: country)
+                CountrySubView(country: country)
             }
         }
         .task {
@@ -65,7 +64,7 @@ struct ContentView: View {
 }
 
 // MARK: CustomView
-struct CountryView: View {
+struct CountrySubView: View {
     
     var country: Country
     
@@ -84,7 +83,7 @@ struct CountryView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        CountryView()
     }
 }
 
