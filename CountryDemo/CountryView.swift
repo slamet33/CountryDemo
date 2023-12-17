@@ -30,10 +30,8 @@ struct CountryView: View {
     @State private var countryList: [Country] = []
     
     var body: some View {
-        List {
-            ForEach(countryList) { country in
-                CountrySubView(country: country)
-            }
+        List(countryList) { country in
+            CountrySubView(country: country)
         }
         .task {
             do {
@@ -59,7 +57,9 @@ struct CountryView: View {
         }
         
         let countryList = try JSONDecoder().decode(CountryResponse.self, from: data)
-        return countryList.data
+        return countryList.data.enumerated().map({ index, data in
+            Country(id: index, name: data.name, flag: data.flag)
+        })
     }
 }
 
